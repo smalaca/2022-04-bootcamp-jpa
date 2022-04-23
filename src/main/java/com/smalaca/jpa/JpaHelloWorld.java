@@ -1,5 +1,7 @@
 package com.smalaca.jpa;
 
+import com.smalaca.jpa.domain.Invoice;
+import com.smalaca.jpa.domain.InvoiceRepository;
 import com.smalaca.jpa.domain.Product;
 import com.smalaca.jpa.domain.ProductRepository;
 
@@ -15,6 +17,15 @@ public class JpaHelloWorld {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         ProductRepository productRepository = new ProductRepository(entityManager);
+        InvoiceRepository invoiceRepository = new InvoiceRepository(entityManager);
+
+        invoiceRepository.save(new Invoice());
+        Invoice invoiceOne = new Invoice();
+        invoiceOne.sent();
+        invoiceRepository.save(invoiceOne);
+        Invoice invoiceTwo = new Invoice();
+        invoiceTwo.payed();
+        invoiceRepository.save(invoiceTwo);
 
         Product product = new Product("Coffee", "The best drink for you", BigDecimal.valueOf(123.456));
         product.add(13);
@@ -36,8 +47,10 @@ public class JpaHelloWorld {
 
         EntityManager entityManagerLast = entityManagerFactory.createEntityManager();
         ProductRepository productRepositoryLast = new ProductRepository(entityManagerLast);
+        InvoiceRepository invoiceRepositoryLast = new InvoiceRepository(entityManagerLast);
 
         productRepositoryLast.findAll().forEach(System.out::println);
+        invoiceRepositoryLast.findAll().forEach(System.out::println);
 
         entityManager.close();
         entityManagerLast.close();
