@@ -12,8 +12,14 @@ public class JpaHelloWorld {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ThingsToBeDoneDomain");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        entityManager.persist(new ToDo(UUID.randomUUID(), "Things that must be done."));
+        entityManager.getTransaction().begin();
 
+        entityManager.persist(new ToDo(UUID.randomUUID(), "Things that must be done."));
+        entityManager.persist(new ToDo(UUID.randomUUID(), "ToDo One"));
+        entityManager.persist(new ToDo(UUID.randomUUID(), "ToDo Two"));
+        entityManager.persist(new ToDo(UUID.randomUUID(), "ToDo Three"));
+
+        entityManager.getTransaction().commit();
         entityManager.close();
     }
 }
