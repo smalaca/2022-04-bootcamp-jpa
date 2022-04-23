@@ -21,4 +21,8 @@ public class ToDo {
         this.id = id;
         this.subject = subject;
     }
+
+    UUID getId() {
+        return id;
+    }
 }
