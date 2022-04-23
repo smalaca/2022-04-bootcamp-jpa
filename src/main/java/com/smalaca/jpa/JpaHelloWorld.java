@@ -39,13 +39,18 @@ public class JpaHelloWorld {
         invoiceTwo.payed();
         invoiceRepository.save(invoiceTwo);
 
-        Product product = new Product("Coffee", "The best drink for you", BigDecimal.valueOf(123.456));
-        product.add(13);
-        productRepository.save(product);
+        Product productWithAmount = new Product("Coffee", "The best drink for you", BigDecimal.valueOf(123.456));
+        productWithAmount.addAmount(13);
+        productRepository.save(productWithAmount);
         UUID productToModifyId = productRepository.save(new Product("Tea", "Good to drink from time to time", BigDecimal.valueOf(123456)));
         productRepository.save(new Product("Water", "You know you need it", BigDecimal.valueOf(0.123456)));
         productRepository.save(new Product("Lemon water", "This is something that is as good as water but tastes like lemon.", BigDecimal.valueOf(12345.6)));
         UUID productToRemoveId = productRepository.save(new Product("Coca Cola", "Cold as ice", BigDecimal.valueOf(12.3456)));
+
+        Product productWithCategory = new Product("Pepsi", "Something like cola", BigDecimal.valueOf(13));
+        productWithCategory.addCategory("Drinks");
+        productWithCategory.addCategory("Pepsico");
+        productRepository.save(productWithCategory);
 
         EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
         ProductRepository productRepositoryTwo = new ProductRepository(entityManagerTwo);
