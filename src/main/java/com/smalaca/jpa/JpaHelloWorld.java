@@ -18,6 +18,7 @@ public class JpaHelloWorld {
         productRepository.save(new Product("Coffee", "The best drink for you"));
         UUID productToModifyId = productRepository.save(new Product("Tea", "Good to drink from time to time"));
         productRepository.save(new Product("Water", "You know you need it"));
+        productRepository.save(new Product("Lemon water", "This is something that is as good as water but tastes like lemon."));
         UUID productToRemoveId = productRepository.save(new Product("Coca Cola", "Cold as ice"));
 
         EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
