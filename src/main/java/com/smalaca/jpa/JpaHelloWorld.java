@@ -20,8 +20,9 @@ public class JpaHelloWorld {
         UUID toDoToDeleteId = toDoRepository.save(new ToDo("ToDo One"));
         toDoRepository.save(new ToDo("ToDo Two"));
         UUID toDoToModifyId = toDoRepository.save(new ToDo("ToDo Three"));
-
-
+        ToDo toDoWithDetails = new ToDo("ToDo Four");
+        toDoWithDetails.setDetails("Some description what I really want to do".repeat(10));
+        toDoRepository.save(toDoWithDetails);
 
         EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
         ToDoRepository toDoRepositoryTwo = new ToDoRepository(entityManagerTwo);

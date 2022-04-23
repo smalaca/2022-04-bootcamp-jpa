@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "ToDoEntity")
 @Table(name = "TODOS")
 @ToString
 public class ToDo {
@@ -20,8 +20,11 @@ public class ToDo {
     @Column(name = "TODO_ID")
     private UUID id;
 
-    @Column(name = "TODO_SUBJECT")
+    @Column(name = "TODO_SUBJECT", nullable = false)
     private String subject;
+
+    @Column(name = "TODO_DETAILS", columnDefinition = "CLOB")
+    private String details;
 
     @Transient
     private String firstSubjectLetter;
@@ -44,5 +47,9 @@ public class ToDo {
     @PostLoad
     private void recalculateFirstSubjectLetter() {
         firstSubjectLetter = subject.substring(0, 1);
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 }

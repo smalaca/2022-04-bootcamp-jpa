@@ -30,7 +30,12 @@ public class ToDoRepository {
     }
 
     public List<ToDo> findAll() {
-        return entityManager.createQuery("SELECT t FROM ToDo t ORDER BY subject ASC", ToDo.class).getResultList();
+        return entityManager
+                .createQuery("SELECT t FROM ToDoEntity t ORDER BY subject ASC", ToDo.class)
+                .getResultList();
+
+        // TRANSLATED TO QUERY:
+        // SELECT * FROM TODOS AS t ORDER BY TODO_SUBJECT ASC
     }
 
     public void deleteById(UUID id) {
