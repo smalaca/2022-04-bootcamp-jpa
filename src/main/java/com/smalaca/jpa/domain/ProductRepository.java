@@ -25,4 +25,10 @@ public class ProductRepository {
     public List<Product> findAll() {
         return entityManager.createQuery("SELECT p FROM Product p ORDER BY name ASC").getResultList();
     }
+
+    public void deleteById(UUID id) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(findById(id));
+        entityManager.getTransaction().commit();
+    }
 }

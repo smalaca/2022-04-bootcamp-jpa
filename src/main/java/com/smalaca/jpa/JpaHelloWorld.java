@@ -18,15 +18,19 @@ public class JpaHelloWorld {
         productRepository.save(new Product(UUID.randomUUID(), "Coffee", "The best drink for you"));
         productRepository.save(new Product(UUID.randomUUID(), "Tea", "Good to drink from time to time"));
         productRepository.save(new Product(UUID.randomUUID(), "Water", "You know you need it"));
-
-        entityManager.close();
+        UUID productToRemoveId = productRepository.save(new Product(UUID.randomUUID(), "Coca Cola", "Cold as ice"));
 
         EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
         ProductRepository productRepositoryTwo = new ProductRepository(entityManagerTwo);
+        productRepositoryTwo.deleteById(productToRemoveId);
 
-        productRepositoryTwo.findAll().forEach(System.out::println);
+        EntityManager entityManagerLast = entityManagerFactory.createEntityManager();
+        ProductRepository productRepositoryLast = new ProductRepository(entityManagerLast);
 
-        entityManagerTwo.close();
+        productRepositoryLast.findAll().forEach(System.out::println);
+
+        entityManager.close();
+        entityManagerLast.close();
         entityManagerFactory.close();
     }
 }
