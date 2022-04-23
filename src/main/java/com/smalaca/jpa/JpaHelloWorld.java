@@ -17,14 +17,20 @@ public class JpaHelloWorld {
         ToDoRepository toDoRepository = new ToDoRepository(entityManager);
 
         toDoRepository.save(new ToDo(UUID.randomUUID(), "Things that must be done."));
-        UUID toDoOneId = toDoRepository.save(new ToDo(UUID.randomUUID(), "ToDo One"));
+        UUID toDoToDeleteId = toDoRepository.save(new ToDo(UUID.randomUUID(), "ToDo One"));
         toDoRepository.save(new ToDo(UUID.randomUUID(), "ToDo Two"));
-        toDoRepository.save(new ToDo(UUID.randomUUID(), "ToDo Three"));
+        UUID toDoToModifyId = toDoRepository.save(new ToDo(UUID.randomUUID(), "ToDo Three"));
 
 
         EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
         ToDoRepository toDoRepositoryTwo = new ToDoRepository(entityManagerTwo);
-        toDoRepositoryTwo.deleteById(toDoOneId);
+        toDoRepositoryTwo.deleteById(toDoToDeleteId);
+
+        EntityManager entityManagerThree = entityManagerFactory.createEntityManager();
+        ToDoRepository toDoRepositoryThree = new ToDoRepository(entityManagerThree);
+        ToDo toDoModified = toDoRepositoryThree.findById(toDoToModifyId);
+        toDoModified.changeSubject("Something new needs to be done");
+        toDoRepositoryThree.update(toDoModified);
 
         EntityManager entityManagerLast = entityManagerFactory.createEntityManager();
         ToDoRepository toDoRepositoryLast = new ToDoRepository(entityManagerLast);
@@ -34,6 +40,8 @@ public class JpaHelloWorld {
 
 
         entityManager.close();
+        entityManagerTwo.close();
+        entityManagerThree.close();
         entityManagerLast.close();
         entityManagerFactory.close();
     }

@@ -25,4 +25,8 @@ public class ToDo {
     UUID getId() {
         return id;
     }
+
+    public void changeSubject(String subject) {
+        this.subject = subject;
+    }
 }

@@ -32,4 +32,10 @@ public class ToDoRepository {
         entityManager.remove(findById(id));
         entityManager.getTransaction().commit();
     }
+
+    public void update(ToDo toDo) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(toDo);
+        entityManager.getTransaction().commit();
+    }
 }
