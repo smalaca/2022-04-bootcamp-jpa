@@ -31,4 +31,10 @@ public class ProductRepository {
         entityManager.remove(findById(id));
         entityManager.getTransaction().commit();
     }
+
+    public void update(Product product) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(product);
+        entityManager.getTransaction().commit();
+    }
 }
