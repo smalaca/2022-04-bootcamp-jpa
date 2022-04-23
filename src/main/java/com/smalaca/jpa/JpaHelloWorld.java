@@ -21,5 +21,6 @@ public class JpaHelloWorld {
 
         entityManager.getTransaction().commit();
         entityManager.close();
+        entityManagerFactory.close();
     }
 }
