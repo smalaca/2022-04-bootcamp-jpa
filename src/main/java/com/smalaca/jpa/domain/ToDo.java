@@ -3,6 +3,7 @@ package com.smalaca.jpa.domain;
 import lombok.ToString;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -35,6 +36,9 @@ public class ToDo {
     @Transient
     private String firstSubjectLetter;
 
+    @Embedded
+    private Description description;
+
     private ToDo() {}
 
     public ToDo(String subject) {
@@ -57,5 +61,9 @@ public class ToDo {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public void add(Description description) {
+        this.description = description;
     }
 }

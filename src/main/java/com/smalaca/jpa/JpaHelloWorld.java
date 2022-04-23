@@ -1,5 +1,6 @@
 package com.smalaca.jpa;
 
+import com.smalaca.jpa.domain.Description;
 import com.smalaca.jpa.domain.ToDo;
 import com.smalaca.jpa.domain.ToDoRepository;
 
@@ -23,6 +24,9 @@ public class JpaHelloWorld {
         ToDo toDoWithDetails = new ToDo("ToDo Four");
         toDoWithDetails.setDetails("Some description what I really want to do".repeat(10));
         toDoRepository.save(toDoWithDetails);
+        ToDo toDoWithDescription = new ToDo("ToDo With descriptiong");
+        toDoWithDescription.add(new Description("this is something important", "this is important because this and that"));
+        toDoRepository.save(toDoWithDescription);
 
         EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
         ToDoRepository toDoRepositoryTwo = new ToDoRepository(entityManagerTwo);
