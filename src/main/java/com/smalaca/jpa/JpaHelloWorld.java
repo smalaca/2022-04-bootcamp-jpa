@@ -1,13 +1,14 @@
 package com.smalaca.jpa;
 
 import com.smalaca.jpa.domain.Description;
+import com.smalaca.jpa.domain.Item;
+import com.smalaca.jpa.domain.ItemRepository;
 import com.smalaca.jpa.domain.ToDo;
 import com.smalaca.jpa.domain.ToDoRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.List;
 import java.util.UUID;
 
 public class JpaHelloWorld {
@@ -15,6 +16,9 @@ public class JpaHelloWorld {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ThingsToBeDoneDomain");
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        ItemRepository itemRepository = new ItemRepository(entityManager);
+        itemRepository.save(new Item(new Description("this is something important", "this is important because this and that")));
+
         ToDoRepository toDoRepository = new ToDoRepository(entityManager);
 
         toDoRepository.save(new ToDo("Things that must be done."));
@@ -44,8 +48,9 @@ public class JpaHelloWorld {
 
         EntityManager entityManagerLast = entityManagerFactory.createEntityManager();
         ToDoRepository toDoRepositoryLast = new ToDoRepository(entityManagerLast);
-        List<ToDo> todos = toDoRepositoryLast.findAll();
-        todos.forEach(System.out::println);
+        ItemRepository itemRepositoryLast = new ItemRepository(entityManagerLast);
+        toDoRepositoryLast.findAll().forEach(System.out::println);
+        itemRepositoryLast.findAll().forEach(System.out::println);
 
         entityManagerFactory.close();
     }

@@ -2,6 +2,8 @@ package com.smalaca.jpa.domain;
 
 import lombok.ToString;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -37,6 +39,10 @@ public class ToDo {
     private String firstSubjectLetter;
 
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "longDescription", column = @Column(name = "LONG_DESCRIPTION")),
+            @AttributeOverride(name = "shortDescription", column = @Column(name = "SHORT_DESCRIPTION"))
+    })
     private Description description;
 
     private ToDo() {}
