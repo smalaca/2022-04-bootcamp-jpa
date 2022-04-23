@@ -16,20 +16,19 @@ import java.util.UUID;
 @Entity
 @ToString
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Buyer {
+public class Seller {
     @Id
     @GeneratedValue
     private UUID id;
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "login", column = @Column(name = "BUY_LOGIN", nullable = false)),
-            @AttributeOverride(name = "phone", column = @Column(name = "PHONE_NUMBER", length = 20)),
-            @AttributeOverride(name = "mail", column = @Column(name = "MAIL_ADDRESS", length = 150))
+            @AttributeOverride(name = "phone", column = @Column(name = "SELLER_PHONE", length = 20)),
+            @AttributeOverride(name = "mail", column = @Column(name = "SELLER_MAIL", length = 150))
     })
     private ContactDetails contactDetails;
 
-    public Buyer(ContactDetails contactDetails) {
+    public Seller(ContactDetails contactDetails) {
         this.contactDetails = contactDetails;
     }
 }

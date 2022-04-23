@@ -7,6 +7,8 @@ import com.smalaca.jpa.domain.Invoice;
 import com.smalaca.jpa.domain.InvoiceRepository;
 import com.smalaca.jpa.domain.Product;
 import com.smalaca.jpa.domain.ProductRepository;
+import com.smalaca.jpa.domain.Seller;
+import com.smalaca.jpa.domain.SellerRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,9 +24,12 @@ public class JpaHelloWorld {
         ProductRepository productRepository = new ProductRepository(entityManager);
         InvoiceRepository invoiceRepository = new InvoiceRepository(entityManager);
         BuyerRepository buyerRepository = new BuyerRepository(entityManager);
+        SellerRepository sellerRepository = new SellerRepository(entityManager);
 
         buyerRepository.save(new Buyer(new ContactDetails("peter-parker", "123-456-789", "spiderman@marvel.com")));
         buyerRepository.save(new Buyer(new ContactDetails("steve-rogers", "111-222-333", "captain-america@marvel.com")));
+        sellerRepository.save(new Seller(new ContactDetails("natasha romanoff", "NA", "black@widow.com")));
+        sellerRepository.save(new Seller(new ContactDetails("wandaMaximoff", "987-654-321", "scarlet-witch@marvel.com")));
 
         invoiceRepository.save(new Invoice());
         Invoice invoiceOne = new Invoice();
@@ -56,10 +61,12 @@ public class JpaHelloWorld {
         ProductRepository productRepositoryLast = new ProductRepository(entityManagerLast);
         InvoiceRepository invoiceRepositoryLast = new InvoiceRepository(entityManagerLast);
         BuyerRepository buyerRepositoryLast = new BuyerRepository(entityManagerLast);
+        SellerRepository sellerRepositoryLast = new SellerRepository(entityManagerLast);
 
         productRepositoryLast.findAll().forEach(System.out::println);
         invoiceRepositoryLast.findAll().forEach(System.out::println);
         buyerRepositoryLast.findAll().forEach(System.out::println);
+        sellerRepositoryLast.findAll().forEach(System.out::println);
 
         entityManager.close();
         entityManagerLast.close();

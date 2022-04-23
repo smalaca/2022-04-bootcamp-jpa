@@ -13,9 +13,7 @@ import javax.persistence.Embeddable;
 public class ContactDetails {
     @Column(nullable = false)
     private String login;
-    @Column(length = 20)
     private String phone;
-    @Column(length = 150)
     private String mail;
 
     public ContactDetails(String login, String phone, String mail) {
