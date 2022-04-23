@@ -1,16 +1,21 @@
 package com.smalaca.jpa.domain;
 
+import lombok.ToString;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.UUID;
 
 @Entity
+@ToString
 public class ToDo {
     @Id
-    private final UUID id;
+    private UUID id;
     @Column
-    private final String subject;
+    private String subject;
+
+    private ToDo() {}
 
     public ToDo(UUID id, String subject) {
         this.id = id;

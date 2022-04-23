@@ -14,13 +14,25 @@ public class JpaHelloWorld {
 
         entityManager.getTransaction().begin();
 
-        entityManager.persist(new ToDo(UUID.randomUUID(), "Things that must be done."));
+        UUID id = UUID.randomUUID();
+        entityManager.persist(new ToDo(id, "Things that must be done."));
         entityManager.persist(new ToDo(UUID.randomUUID(), "ToDo One"));
         entityManager.persist(new ToDo(UUID.randomUUID(), "ToDo Two"));
         entityManager.persist(new ToDo(UUID.randomUUID(), "ToDo Three"));
 
         entityManager.getTransaction().commit();
+
+        System.out.println("IN THE SAME CONTEXT - No Query to get ToDo");
+        System.out.println(entityManager.find(ToDo.class, id));
+
         entityManager.close();
+
+        EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
+
+        System.out.println("IN THE SECOND CONTEXT - Query to get ToDo");
+        System.out.println(entityManagerTwo.find(ToDo.class, id));
+
+        entityManagerTwo.close();
         entityManagerFactory.close();
     }
 }
