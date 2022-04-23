@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PostLoad;
+import javax.persistence.Transient;
 import java.util.UUID;
 
 @Entity
@@ -16,11 +18,13 @@ public class ToDo {
     private UUID id;
     @Column
     private String subject;
+    @Transient
+    private String firstSubjectLetter;
 
     private ToDo() {}
 
     public ToDo(String subject) {
-        this.subject = subject;
+        changeSubject(subject);
     }
 
     UUID getId() {
@@ -29,5 +33,11 @@ public class ToDo {
 
     public void changeSubject(String subject) {
         this.subject = subject;
+        recalculateFirstSubjectLetter();
+    }
+
+    @PostLoad
+    private void recalculateFirstSubjectLetter() {
+        firstSubjectLetter = subject.substring(0, 1);
     }
 }
