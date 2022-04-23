@@ -15,10 +15,10 @@ public class JpaHelloWorld {
 
         ProductRepository productRepository = new ProductRepository(entityManager);
 
-        productRepository.save(new Product(UUID.randomUUID(), "Coffee", "The best drink for you"));
-        UUID productToModifyId = productRepository.save(new Product(UUID.randomUUID(), "Tea", "Good to drink from time to time"));
-        productRepository.save(new Product(UUID.randomUUID(), "Water", "You know you need it"));
-        UUID productToRemoveId = productRepository.save(new Product(UUID.randomUUID(), "Coca Cola", "Cold as ice"));
+        productRepository.save(new Product("Coffee", "The best drink for you"));
+        UUID productToModifyId = productRepository.save(new Product("Tea", "Good to drink from time to time"));
+        productRepository.save(new Product("Water", "You know you need it"));
+        UUID productToRemoveId = productRepository.save(new Product("Coca Cola", "Cold as ice"));
 
         EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
         ProductRepository productRepositoryTwo = new ProductRepository(entityManagerTwo);
