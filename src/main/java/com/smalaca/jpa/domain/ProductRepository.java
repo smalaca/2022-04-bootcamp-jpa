@@ -1,6 +1,7 @@
 package com.smalaca.jpa.domain;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.UUID;
 
 public class ProductRepository {
@@ -19,5 +20,9 @@ public class ProductRepository {
 
     public Product findById(UUID id) {
         return entityManager.find(Product.class, id);
+    }
+
+    public List<Product> findAll() {
+        return entityManager.createQuery("SELECT p FROM Product p ORDER BY name ASC").getResultList();
     }
 }
