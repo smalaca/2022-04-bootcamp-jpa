@@ -4,16 +4,21 @@ import lombok.ToString;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "ToDoEntity")
@@ -45,6 +50,11 @@ public class ToDo {
     })
     private Description description;
 
+    @ElementCollection
+    @CollectionTable(name = "TODO_COMMENTS", joinColumns = {@JoinColumn(name = "TODO_ID")})
+    @Column(name = "TODO_COMMENT", columnDefinition = "CLOB")
+    private List<String> comments = new ArrayList<>();
+
     private ToDo() {}
 
     public ToDo(String subject) {
@@ -71,5 +81,9 @@ public class ToDo {
 
     public void add(Description description) {
         this.description = description;
+    }
+
+    public void addComment(String comment) {
+        this.comments.add(comment);
     }
 }

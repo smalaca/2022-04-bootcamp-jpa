@@ -31,6 +31,11 @@ public class JpaHelloWorld {
         ToDo toDoWithDescription = new ToDo("ToDo With descriptiong");
         toDoWithDescription.add(new Description("this is something important", "this is important because this and that"));
         toDoRepository.save(toDoWithDescription);
+        ToDo toDoWithComments = new ToDo("with comments");
+        toDoWithComments.addComment("I like it");
+        toDoWithComments.addComment("Somehow I don't like it");
+        toDoWithComments.addComment("it's pointless to do it");
+        toDoRepository.save(toDoWithComments);
 
         EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
         ToDoRepository toDoRepositoryTwo = new ToDoRepository(entityManagerTwo);
