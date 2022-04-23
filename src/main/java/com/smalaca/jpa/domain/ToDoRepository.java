@@ -20,11 +20,17 @@ public class ToDoRepository {
     }
 
     public ToDo findById(UUID id) {
+//        TypedQuery<ToDo> query = entityManager.createQuery("SELECT t FROM ToDo t WHERE t.id = ?1", ToDo.class);
+//        query.setParameter(1, id);
+//        TypedQuery<ToDo> query = entityManager.createQuery("SELECT t FROM ToDo t WHERE t.id = :id", ToDo.class);
+//        query.setParameter("id", id);
+
+//        return query.getSingleResult();
         return entityManager.find(ToDo.class, id);
     }
 
     public List<ToDo> findAll() {
-        return entityManager.createQuery("SELECT t FROM ToDo t ORDER BY subject ASC").getResultList();
+        return entityManager.createQuery("SELECT t FROM ToDo t ORDER BY subject ASC", ToDo.class).getResultList();
     }
 
     public void deleteById(UUID id) {
