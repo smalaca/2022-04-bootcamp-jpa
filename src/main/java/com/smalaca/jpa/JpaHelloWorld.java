@@ -12,24 +12,29 @@ import java.util.UUID;
 public class JpaHelloWorld {
     public static void main(String[] args) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ThingsToBeDoneDomain");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         ToDoRepository toDoRepository = new ToDoRepository(entityManager);
 
         toDoRepository.save(new ToDo(UUID.randomUUID(), "Things that must be done."));
-        toDoRepository.save(new ToDo(UUID.randomUUID(), "ToDo One"));
+        UUID toDoOneId = toDoRepository.save(new ToDo(UUID.randomUUID(), "ToDo One"));
         toDoRepository.save(new ToDo(UUID.randomUUID(), "ToDo Two"));
         toDoRepository.save(new ToDo(UUID.randomUUID(), "ToDo Three"));
 
-        entityManager.close();
 
         EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
         ToDoRepository toDoRepositoryTwo = new ToDoRepository(entityManagerTwo);
+        toDoRepositoryTwo.deleteById(toDoOneId);
 
-        List<ToDo> todos = toDoRepositoryTwo.findAll();
+        EntityManager entityManagerLast = entityManagerFactory.createEntityManager();
+        ToDoRepository toDoRepositoryLast = new ToDoRepository(entityManagerLast);
+
+        List<ToDo> todos = toDoRepositoryLast.findAll();
         todos.forEach(System.out::println);
 
-        entityManagerTwo.close();
+
+        entityManager.close();
+        entityManagerLast.close();
         entityManagerFactory.close();
     }
 }

@@ -26,4 +26,10 @@ public class ToDoRepository {
     public List<ToDo> findAll() {
         return entityManager.createQuery("SELECT t FROM ToDo t ORDER BY subject ASC").getResultList();
     }
+
+    public void deleteById(UUID id) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(findById(id));
+        entityManager.getTransaction().commit();
+    }
 }
