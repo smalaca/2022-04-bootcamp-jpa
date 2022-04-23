@@ -6,6 +6,7 @@ import com.smalaca.jpa.domain.ProductRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public class JpaHelloWorld {
@@ -15,11 +16,13 @@ public class JpaHelloWorld {
 
         ProductRepository productRepository = new ProductRepository(entityManager);
 
-        productRepository.save(new Product("Coffee", "The best drink for you"));
-        UUID productToModifyId = productRepository.save(new Product("Tea", "Good to drink from time to time"));
-        productRepository.save(new Product("Water", "You know you need it"));
-        productRepository.save(new Product("Lemon water", "This is something that is as good as water but tastes like lemon."));
-        UUID productToRemoveId = productRepository.save(new Product("Coca Cola", "Cold as ice"));
+        Product product = new Product("Coffee", "The best drink for you", BigDecimal.valueOf(123.456));
+        product.add(13);
+        productRepository.save(product);
+        UUID productToModifyId = productRepository.save(new Product("Tea", "Good to drink from time to time", BigDecimal.valueOf(123456)));
+        productRepository.save(new Product("Water", "You know you need it", BigDecimal.valueOf(0.123456)));
+        productRepository.save(new Product("Lemon water", "This is something that is as good as water but tastes like lemon.", BigDecimal.valueOf(12345.6)));
+        UUID productToRemoveId = productRepository.save(new Product("Coca Cola", "Cold as ice", BigDecimal.valueOf(12.3456)));
 
         EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
         ProductRepository productRepositoryTwo = new ProductRepository(entityManagerTwo);
