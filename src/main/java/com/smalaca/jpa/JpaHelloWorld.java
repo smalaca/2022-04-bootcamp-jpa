@@ -16,10 +16,10 @@ public class JpaHelloWorld {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         ToDoRepository toDoRepository = new ToDoRepository(entityManager);
 
-        toDoRepository.save(new ToDo(UUID.randomUUID(), "Things that must be done."));
-        UUID toDoToDeleteId = toDoRepository.save(new ToDo(UUID.randomUUID(), "ToDo One"));
-        toDoRepository.save(new ToDo(UUID.randomUUID(), "ToDo Two"));
-        UUID toDoToModifyId = toDoRepository.save(new ToDo(UUID.randomUUID(), "ToDo Three"));
+        toDoRepository.save(new ToDo("Things that must be done."));
+        UUID toDoToDeleteId = toDoRepository.save(new ToDo("ToDo One"));
+        toDoRepository.save(new ToDo("ToDo Two"));
+        UUID toDoToModifyId = toDoRepository.save(new ToDo("ToDo Three"));
 
 
 
