@@ -32,6 +32,10 @@ public class Invoice {
     @JoinColumn(name = "BUYER_ID")
     private Buyer buyer;
 
+    @ManyToOne
+    @JoinColumn(name = "SELLER_ID")
+    private Seller seller;
+
     public Invoice() {}
 
     public Invoice(Offer offer) {
@@ -54,6 +58,10 @@ public class Invoice {
         this.buyer = buyer;
     }
 
+    void assignTo(Seller seller) {
+        this.seller = seller;
+    }
+
     @Override
     public String toString() {
         return "Invoice{" +
@@ -62,6 +70,7 @@ public class Invoice {
                 ", offer=" + offer +
                 ", items=" + items +
                 ", buyer=" + (buyer == null ? "NO BUYER" : buyer.getId()) +
+                ", seller=" + (seller == null ? "NO SELLER" : seller.getId()) +
                 '}';
     }
 }

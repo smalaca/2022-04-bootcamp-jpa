@@ -56,7 +56,7 @@ public class JpaHelloWorld {
 
         UUID buyerId = buyerRepository.save(new Buyer(new ContactDetails("peter-parker", "123-456-789", "spiderman@marvel.com")));
         buyerRepository.save(new Buyer(new ContactDetails("steve-rogers", "111-222-333", "captain-america@marvel.com")));
-        sellerRepository.save(new Seller(new ContactDetails("natasha romanoff", "NA", "black@widow.com")));
+        UUID sellerId = sellerRepository.save(new Seller(new ContactDetails("natasha romanoff", "NA", "black@widow.com")));
         sellerRepository.save(new Seller(new ContactDetails("wandaMaximoff", "987-654-321", "scarlet-witch@marvel.com")));
 
         UUID invoiceWithOfferOne = invoiceRepository.save(new Invoice(offerOne));
@@ -94,12 +94,19 @@ public class JpaHelloWorld {
 //        offerRepositoryThree.deleteById(offerWithItemsId);
         InvoiceRepository invoiceRepositoryThree = new InvoiceRepository(entityManagerThree);
         BuyerRepository buyerRepositoryThree = new BuyerRepository(entityManagerThree);
+        SellerRepository sellerRepositoryThree = new SellerRepository(entityManagerThree);
         Invoice toAddOne = invoiceRepositoryThree.findById(invoiceWithOfferOne);
         Invoice toAddTwo = invoiceRepositoryThree.findById(invoiceWithOfferTwo);
-        Buyer found = buyerRepositoryThree.findById(buyerId);
-        found.add(toAddOne);
-        found.add(toAddTwo);
-        buyerRepositoryThree.update(found);
+        Invoice toAddThree = invoiceRepositoryThree.findById(invoiceWithoutOffer);
+
+        Buyer foundBuyer = buyerRepositoryThree.findById(buyerId);
+        foundBuyer.add(toAddOne);
+        foundBuyer.add(toAddTwo);
+        buyerRepositoryThree.update(foundBuyer);
+        Seller foundSeller = sellerRepositoryThree.findById(sellerId);
+        foundSeller.add(toAddOne);
+        foundSeller.add(toAddThree);
+        sellerRepositoryThree.update(foundSeller);
 
         ProductRepository productRepositoryThree = new ProductRepository(entityManagerThree);
         Product productToModify = productRepositoryThree.findById(productToModifyId);
@@ -123,7 +130,7 @@ public class JpaHelloWorld {
 //        productRepositoryLast.findAll().forEach(System.out::println);
         invoiceRepositoryLast.findAll().forEach(System.out::println);
         buyerRepositoryLast.findAll().forEach(System.out::println);
-//        sellerRepositoryLast.findAll().forEach(System.out::println);
+        sellerRepositoryLast.findAll().forEach(System.out::println);
 //        basketRepositoryLast.findAll().forEach(System.out::println);
 //        offerRepositoryLast.findAll().forEach(System.out::println);
 //        offerItemRepositoryLast.findAll().forEach(System.out::println);

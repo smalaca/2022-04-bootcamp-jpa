@@ -11,6 +11,9 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -28,7 +31,19 @@ public class Seller {
     })
     private ContactDetails contactDetails;
 
+    @OneToMany(mappedBy = "seller")
+    private List<Invoice> invoices = new ArrayList<>();
+
     public Seller(ContactDetails contactDetails) {
         this.contactDetails = contactDetails;
+    }
+
+    UUID getId() {
+        return id;
+    }
+
+    public void add(Invoice invoice) {
+        invoices.add(invoice);
+        invoice.assignTo(this);
     }
 }
