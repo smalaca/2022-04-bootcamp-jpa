@@ -14,11 +14,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Entity(name = "ToDoEntity")
@@ -55,6 +58,12 @@ public class ToDo {
     @Embedded
     private List<Comment> comments = new ArrayList<>();
 
+    @ElementCollection
+    @CollectionTable(name = "TODO_TAGS", joinColumns = {@JoinColumn(name = "TODO_ID")})
+    @MapKeyColumn(name = "code")
+    @Column(name = "description")
+    private Map<String, String> tags = new HashMap<>();
+
     private ToDo() {}
 
     public ToDo(String subject) {
@@ -85,5 +94,9 @@ public class ToDo {
 
     public void addComment(Comment comment) {
         this.comments.add(comment);
+    }
+
+    public void addTag(String code, String description) {
+        tags.put(code, description);
     }
 }

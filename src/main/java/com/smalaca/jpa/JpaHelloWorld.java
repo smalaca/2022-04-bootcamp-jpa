@@ -38,6 +38,11 @@ public class JpaHelloWorld {
         toDoWithComments.addComment(new Comment("Thor", "it's pointless to do it"));
         toDoRepository.save(toDoWithComments);
 
+        ToDo toDoWithTags = new ToDo("something with tags");
+        toDoWithTags.addTag("HOME", "to be done at home");
+        toDoWithTags.addTag("WORK", "must be in the office");
+        toDoRepository.save(toDoWithTags);
+
         EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
         ToDoRepository toDoRepositoryTwo = new ToDoRepository(entityManagerTwo);
         toDoRepositoryTwo.deleteById(toDoToDeleteId);
