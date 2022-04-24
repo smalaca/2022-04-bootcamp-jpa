@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,8 +26,7 @@ public class Author {
     private String firstName;
     private String lastName;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "AUTHOR_ID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
     private Set<Address> addresses = new HashSet<>();
 
     public Author(String firstName, String lastName) {
@@ -38,5 +36,10 @@ public class Author {
 
     public void add(Address address) {
         addresses.add(address);
+        address.assignTo(this);
+    }
+
+    UUID getId() {
+        return id;
     }
 }

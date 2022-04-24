@@ -1,6 +1,7 @@
 package com.smalaca.jpa;
 
 import com.smalaca.jpa.domain.Address;
+import com.smalaca.jpa.domain.AddressRepository;
 import com.smalaca.jpa.domain.Author;
 import com.smalaca.jpa.domain.AuthorRepository;
 import com.smalaca.jpa.domain.Description;
@@ -35,22 +36,24 @@ public class JpaHelloWorld {
         steveRogers.add(new Address("Lubicz 7/7", "12345", "Kraków", "Polska"));
         authorRepository.save(steveRogers);
 
-        toDoRepository.save(new ToDo("Things that must be done.", tonyStark));
-        ToDo toDoWithTags = new ToDo("something with tags", steveRogers);
-        toDoWithTags.addTag("HOME", "to be done at home");
-        toDoWithTags.addTag("WORK", "must be in the office");
-        toDoRepository.save(toDoWithTags);
+//        toDoRepository.save(new ToDo("Things that must be done.", tonyStark));
+//        ToDo toDoWithTags = new ToDo("something with tags", steveRogers);
+//        toDoWithTags.addTag("HOME", "to be done at home");
+//        toDoWithTags.addTag("WORK", "must be in the office");
+//        toDoRepository.save(toDoWithTags);
 
 
         EntityManager entityManagerLast = entityManagerFactory.createEntityManager();
         ToDoRepository toDoRepositoryLast = new ToDoRepository(entityManagerLast);
         ItemRepository itemRepositoryLast = new ItemRepository(entityManagerLast);
         AuthorRepository authorRepositoryLast = new AuthorRepository(entityManagerLast);
+        AddressRepository addressRepositoryLast = new AddressRepository(entityManagerLast);
         List<ToDo> todos = toDoRepositoryLast.findAllWithCommentsAndTags();
 //        List<Item> items = itemRepositoryLast.findAll();
         List<Author> authors = authorRepositoryLast.findAll();
 
         authors.forEach(System.out::println);
+        addressRepositoryLast.findAll().forEach(System.out::println);
 //        todos.forEach(System.out::println);
 //        items.forEach(System.out::println);
 
