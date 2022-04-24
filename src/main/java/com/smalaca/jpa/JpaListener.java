@@ -10,6 +10,7 @@ import com.smalaca.jpa.domain.Offer;
 import com.smalaca.jpa.domain.OfferItem;
 import com.smalaca.jpa.domain.Product;
 import com.smalaca.jpa.domain.ProductDefinition;
+import com.smalaca.jpa.domain.ProductTwo;
 import com.smalaca.jpa.domain.Rating;
 import com.smalaca.jpa.domain.Seller;
 import com.smalaca.jpa.domain.SpringBasketRepository;
@@ -18,6 +19,7 @@ import com.smalaca.jpa.domain.SpringInvoiceRepository;
 import com.smalaca.jpa.domain.SpringOfferRepository;
 import com.smalaca.jpa.domain.SpringProductDefinitionRepository;
 import com.smalaca.jpa.domain.SpringProductRepository;
+import com.smalaca.jpa.domain.SpringProductTwoRepository;
 import com.smalaca.jpa.domain.SpringSellerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -35,6 +37,7 @@ import java.util.UUID;
 public class JpaListener {
     private final SpringProductDefinitionRepository productDefinitionRepository;
     private final SpringProductRepository productRepository;
+    private final SpringProductTwoRepository springProductTwoRepository;
     private final SpringInvoiceRepository invoiceRepository;
     private final SpringBuyerRepository buyerRepository;
     private final SpringSellerRepository sellerRepository;
@@ -132,10 +135,19 @@ public class JpaListener {
 //        productRepositoryLast.findAll().forEach(System.out::println);
 //        invoiceRepositoryLast.findAll().forEach(System.out::println);
 //        buyerRepositoryLast.findAll().forEach(System.out::println);
-        sellerRepository.findAll().forEach(System.out::println);
-        productDefinitionRepository.findAll().forEach(System.out::println);
+//        sellerRepository.findAll().forEach(System.out::println);
+//        productDefinitionRepository.findAll().forEach(System.out::println);
 //        basketRepositoryLast.findAll().forEach(System.out::println);
 //        offerRepositoryLast.findAll().forEach(System.out::println);
 //        offerItemRepositoryLast.findAll().forEach(System.out::println);
+
+        springProductTwoRepository.save(new ProductTwo("Coca", "CocaCola", "drink", 123));
+        springProductTwoRepository.save(new ProductTwo("Sprite", "CocaCola", "drink", 42));
+        springProductTwoRepository.save(new ProductTwo("Fanta", "CocaCola", "drink", 12));
+        springProductTwoRepository.save(new ProductTwo("Pepsi", "Pepsi", "drink", 98));
+        springProductTwoRepository.save(new ProductTwo("7UP", "Pepsi", "drink", 67));
+        springProductTwoRepository.save(new ProductTwo("Mirinda", "Pepsi", "drink", 43));
+
+        springProductTwoRepository.findAll().forEach(System.out::println);
     }
 }
