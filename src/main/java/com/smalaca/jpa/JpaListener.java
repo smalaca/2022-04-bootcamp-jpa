@@ -39,13 +39,14 @@ public class JpaListener {
         watcherRepository.save(jeanGrey);
 
         Author tonyStark = new Author("Tony", "Stark");
-        tonyStark.add(new Address("Krakowska 3/2", "12345", "Kraków", "Polska"));
-        tonyStark.add(new Address("Floriańska 13/42", "12345", "Kraków", "Polska"));
-        tonyStark.add(new Address("Krakowska 67", "43212", "Warszawa", "Polska"));
+        tonyStark.add(new Address("Krakowska", "12345", "Kraków", "Polska"));
+        tonyStark.add(new Address("Floriańska", "12345", "Kraków", "Polska"));
+        tonyStark.add(new Address("Krakowska", "43212", "Wrocław", "Polska"));
         authorRepository.save(tonyStark);
         Author steveRogers = new Author("Steve", "Rogers");
-        steveRogers.add(new Address("Krakowska 67", "43212", "Warszawa", "Polska"));
-        steveRogers.add(new Address("Lubicz 7/7", "12345", "Kraków", "Polska"));
+        steveRogers.add(new Address("Krakowska", "43212", "Warszawa", "Polska"));
+        steveRogers.add(new Address("Lubicz", "12345", "Kraków", "Polska"));
+        steveRogers.add(new Address("Lubicz", "12345", "Pcim", "Polska"));
         authorRepository.save(steveRogers);
 
         toDoRepository.save(new ToDo("Things that must be done.", tonyStark));
@@ -66,6 +67,10 @@ public class JpaListener {
         addressRepository.findAllByCity("Kraków").forEach(System.out::println);
         System.out.println("WARSZAWA");
         addressRepository.findAllByCity("Warszawa").forEach(System.out::println);
+        System.out.println("STREET OR CITY");
+        addressRepository.findAllByCityAndStreet("Kraków", "Lubicz").forEach(System.out::println);
+        System.out.println("STREET OR CITY");
+        System.out.println(addressRepository.findOneByCityAndStreet("Kraków", "Lubicz").get());
 //        watcherRepository.findAll().forEach(System.out::println);
 //        todos.forEach(System.out::println);
 //        items.forEach(System.out::println);
