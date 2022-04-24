@@ -29,6 +29,12 @@ public class ToDoRepository {
         return entityManager.find(ToDo.class, id);
     }
 
+    public List<ToDo> findAllWithCommentsAndTags() {
+        return entityManager
+                .createQuery("SELECT t FROM ToDoEntity t LEFT JOIN FETCH t.comments LEFT JOIN FETCH t.tags ORDER BY t.subject ASC", ToDo.class)
+                .getResultList();
+    }
+
     public List<ToDo> findAll() {
         return entityManager
                 .createQuery("SELECT t FROM ToDoEntity t ORDER BY subject ASC", ToDo.class)

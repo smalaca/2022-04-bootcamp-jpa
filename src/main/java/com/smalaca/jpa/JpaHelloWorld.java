@@ -10,6 +10,7 @@ import com.smalaca.jpa.domain.ToDoRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 import java.util.UUID;
 
 public class JpaHelloWorld {
@@ -60,8 +61,12 @@ public class JpaHelloWorld {
         EntityManager entityManagerLast = entityManagerFactory.createEntityManager();
         ToDoRepository toDoRepositoryLast = new ToDoRepository(entityManagerLast);
         ItemRepository itemRepositoryLast = new ItemRepository(entityManagerLast);
-        toDoRepositoryLast.findAll().forEach(System.out::println);
-        itemRepositoryLast.findAll().forEach(System.out::println);
+        List<ToDo> todos = toDoRepositoryLast.findAllWithCommentsAndTags();
+        List<Item> items = itemRepositoryLast.findAll();
+        entityManagerLast.close();
+
+        todos.forEach(System.out::println);
+        items.forEach(System.out::println);
 
         entityManagerFactory.close();
     }
