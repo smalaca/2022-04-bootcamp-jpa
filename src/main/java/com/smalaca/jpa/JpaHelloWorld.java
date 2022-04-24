@@ -9,6 +9,8 @@ import com.smalaca.jpa.domain.ContactDetails;
 import com.smalaca.jpa.domain.Invoice;
 import com.smalaca.jpa.domain.InvoiceRepository;
 import com.smalaca.jpa.domain.Offer;
+import com.smalaca.jpa.domain.OfferItem;
+import com.smalaca.jpa.domain.OfferItemRepository;
 import com.smalaca.jpa.domain.OfferRepository;
 import com.smalaca.jpa.domain.Product;
 import com.smalaca.jpa.domain.ProductRepository;
@@ -40,6 +42,12 @@ public class JpaHelloWorld {
         UUID offerWithInvoice = offerRepository.save(offerOne);
         offerRepository.save(offerTwo);
         UUID offerWithoutInvoice = offerRepository.save(new Offer(UUID.randomUUID().toString()));
+
+        Offer offerWithItems = new Offer(UUID.randomUUID().toString());
+        offerWithItems.add(new OfferItem(UUID.randomUUID(), 13));
+        offerWithItems.add(new OfferItem(UUID.randomUUID(), 42));
+        offerWithItems.add(new OfferItem(UUID.randomUUID(), 7));
+        offerRepository.save(offerWithItems);
 
         Basket basket = new Basket(new BasketIdentifier("tony stark", 42, LocalDate.now()));
         basket.add(UUID.randomUUID(), 13);
@@ -94,6 +102,7 @@ public class JpaHelloWorld {
         SellerRepository sellerRepositoryLast = new SellerRepository(entityManagerLast);
         BasketRepository basketRepositoryLast = new BasketRepository(entityManagerLast);
         OfferRepository offerRepositoryLast = new OfferRepository(entityManagerLast);
+        OfferItemRepository offerItemRepositoryLast = new OfferItemRepository(entityManagerLast);
 
 //        offerRepositoryLast.deleteById(offerWithoutInvoice);
 //        invoiceRepositoryLast.deleteById(invoiceWithoutOffer);
@@ -106,6 +115,7 @@ public class JpaHelloWorld {
 //        sellerRepositoryLast.findAll().forEach(System.out::println);
 //        basketRepositoryLast.findAll().forEach(System.out::println);
         offerRepositoryLast.findAll().forEach(System.out::println);
+        offerItemRepositoryLast.findAll().forEach(System.out::println);
 
         entityManagerFactory.close();
     }
