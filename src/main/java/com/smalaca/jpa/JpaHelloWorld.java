@@ -7,6 +7,7 @@ import com.smalaca.jpa.domain.Invoice;
 import com.smalaca.jpa.domain.InvoiceRepository;
 import com.smalaca.jpa.domain.Product;
 import com.smalaca.jpa.domain.ProductRepository;
+import com.smalaca.jpa.domain.Rating;
 import com.smalaca.jpa.domain.Seller;
 import com.smalaca.jpa.domain.SellerRepository;
 
@@ -51,6 +52,11 @@ public class JpaHelloWorld {
         productWithCategory.addCategory("Drinks");
         productWithCategory.addCategory("Pepsico");
         productRepository.save(productWithCategory);
+
+        Product productWithRatings = new Product("Cup", "You need to have something to drink from", BigDecimal.valueOf(13));
+        productWithRatings.add(new Rating("black panther", "13", "it is awesome"));
+        productWithRatings.add(new Rating("natasha romanoff", "42", "it is great"));
+        productRepository.save(productWithRatings);
 
         EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
         ProductRepository productRepositoryTwo = new ProductRepository(entityManagerTwo);

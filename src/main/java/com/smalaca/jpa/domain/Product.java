@@ -5,6 +5,7 @@ import lombok.ToString;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -45,6 +46,11 @@ public class Product {
     @Column(name = "CATEGORY")
     private Set<String> categories = new HashSet<>();
 
+    @ElementCollection
+    @CollectionTable(name = "RATINGS")
+    @Embedded
+    private Set<Rating> ratings = new HashSet<>();
+
     private Product() {}
 
     public Product(String name, String description, BigDecimal price) {
@@ -78,5 +84,9 @@ public class Product {
 
     public void addCategory(String category) {
         this.categories.add(category);
+    }
+
+    public void add(Rating rating) {
+        ratings.add(rating);
     }
 }
