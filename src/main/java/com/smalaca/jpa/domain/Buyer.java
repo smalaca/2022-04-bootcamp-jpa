@@ -39,7 +39,7 @@ public class Buyer {
         this.contactDetails = contactDetails;
     }
 
-    UUID getId() {
+    public UUID getId() {
         return id;
     }
 

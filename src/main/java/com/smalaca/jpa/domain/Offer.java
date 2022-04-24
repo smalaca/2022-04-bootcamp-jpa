@@ -30,7 +30,7 @@ public class Offer {
         this.offerNumber = offerNumber;
     }
 
-    UUID getId() {
+    public UUID getId() {
         return id;
     }
 

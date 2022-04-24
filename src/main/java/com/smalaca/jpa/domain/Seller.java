@@ -49,7 +49,7 @@ public class Seller {
         this.contactDetails = contactDetails;
     }
 
-    UUID getId() {
+    public UUID getId() {
         return id;
     }
 

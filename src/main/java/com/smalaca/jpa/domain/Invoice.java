@@ -50,7 +50,7 @@ public class Invoice {
         status = InvoiceStatus.PAYED;
     }
 
-    UUID getId() {
+    public UUID getId() {
         return id;
     }
 

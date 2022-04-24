@@ -60,7 +60,7 @@ public class Product {
         amount = 0;
     }
 
-    UUID getId() {
+    public UUID getId() {
         return id;
     }
 
