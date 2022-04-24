@@ -1,6 +1,7 @@
 package com.smalaca.jpa;
 
 import com.smalaca.jpa.domain.Basket;
+import com.smalaca.jpa.domain.BasketIdentifier;
 import com.smalaca.jpa.domain.BasketRepository;
 import com.smalaca.jpa.domain.Buyer;
 import com.smalaca.jpa.domain.BuyerRepository;
@@ -17,6 +18,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class JpaHelloWorld {
@@ -30,7 +32,7 @@ public class JpaHelloWorld {
         SellerRepository sellerRepository = new SellerRepository(entityManager);
         BasketRepository basketRepository = new BasketRepository(entityManager);
 
-        Basket basket = new Basket();
+        Basket basket = new Basket(new BasketIdentifier("tony stark", 42, LocalDate.now()));
         basket.add(UUID.randomUUID(), 13);
         basket.add(UUID.randomUUID(), 42);
         basketRepository.save(basket);
