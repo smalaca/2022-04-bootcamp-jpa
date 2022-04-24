@@ -64,13 +64,17 @@ public class JpaListener {
 
 //        authors.forEach(System.out::println);
         System.out.println("KRAKÓW");
-        addressRepository.findAllByCity("Kraków").forEach(System.out::println);
+//        addressRepository.findAllByCity("Kraków").forEach(System.out::println);
+        addressRepository.findAllByCityName("Kraków").forEach(System.out::println);
         System.out.println("WARSZAWA");
-        addressRepository.findAllByCity("Warszawa").forEach(System.out::println);
+//        addressRepository.findAllByCity("Warszawa").forEach(System.out::println);
+        addressRepository.findAllByCityName("Warszawa").forEach(System.out::println);
         System.out.println("STREET OR CITY");
         addressRepository.findAllByCityAndStreet("Kraków", "Lubicz").forEach(System.out::println);
         System.out.println("STREET OR CITY");
         System.out.println(addressRepository.findOneByCityAndStreet("Kraków", "Lubicz").get());
+        System.out.println("CITIES");
+        addressRepository.findAllCities().forEach(System.out::println);
 //        watcherRepository.findAll().forEach(System.out::println);
 //        todos.forEach(System.out::println);
 //        items.forEach(System.out::println);
