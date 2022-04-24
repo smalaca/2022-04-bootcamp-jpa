@@ -1,5 +1,7 @@
 package com.smalaca.jpa;
 
+import com.smalaca.jpa.domain.Basket;
+import com.smalaca.jpa.domain.BasketRepository;
 import com.smalaca.jpa.domain.Buyer;
 import com.smalaca.jpa.domain.BuyerRepository;
 import com.smalaca.jpa.domain.ContactDetails;
@@ -26,6 +28,12 @@ public class JpaHelloWorld {
         InvoiceRepository invoiceRepository = new InvoiceRepository(entityManager);
         BuyerRepository buyerRepository = new BuyerRepository(entityManager);
         SellerRepository sellerRepository = new SellerRepository(entityManager);
+        BasketRepository basketRepository = new BasketRepository(entityManager);
+
+        Basket basket = new Basket();
+        basket.add(UUID.randomUUID(), 13);
+        basket.add(UUID.randomUUID(), 42);
+        basketRepository.save(basket);
 
         buyerRepository.save(new Buyer(new ContactDetails("peter-parker", "123-456-789", "spiderman@marvel.com")));
         buyerRepository.save(new Buyer(new ContactDetails("steve-rogers", "111-222-333", "captain-america@marvel.com")));
@@ -73,11 +81,13 @@ public class JpaHelloWorld {
         InvoiceRepository invoiceRepositoryLast = new InvoiceRepository(entityManagerLast);
         BuyerRepository buyerRepositoryLast = new BuyerRepository(entityManagerLast);
         SellerRepository sellerRepositoryLast = new SellerRepository(entityManagerLast);
+        BasketRepository basketRepositoryLast = new BasketRepository(entityManagerLast);
 
         productRepositoryLast.findAll().forEach(System.out::println);
         invoiceRepositoryLast.findAll().forEach(System.out::println);
         buyerRepositoryLast.findAll().forEach(System.out::println);
         sellerRepositoryLast.findAll().forEach(System.out::println);
+        basketRepositoryLast.findAll().forEach(System.out::println);
 
         entityManager.close();
         entityManagerLast.close();
