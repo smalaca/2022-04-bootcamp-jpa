@@ -6,6 +6,7 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -64,9 +65,14 @@ public class ToDo {
     @Column(name = "description")
     private Map<String, String> tags = new HashMap<>();
 
+    @Convert(converter = ToDoCategoryConverter.class)
+    @Column(name = "TODO_CATEGORY")
+    private ToDoCategory toDoCategory;
+
     private ToDo() {}
 
     public ToDo(String subject) {
+        toDoCategory = new ToDoCategory("PERSONAL", "my own to do items");
         changeSubject(subject);
     }
 
