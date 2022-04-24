@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -67,9 +68,14 @@ public class ToDo {
     @Column(name = "TODO_CATEGORY")
     private ToDoCategory toDoCategory;
 
+    @OneToOne
+    @JoinColumn(name = "AUTHOR_ID")
+    private Author author;
+
     private ToDo() {}
 
-    public ToDo(String subject) {
+    public ToDo(String subject, Author author) {
+        this.author = author;
         toDoCategory = new ToDoCategory("PERSONAL", "my own to do items");
         changeSubject(subject);
     }
