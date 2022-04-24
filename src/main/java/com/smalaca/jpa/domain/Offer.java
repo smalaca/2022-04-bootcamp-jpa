@@ -22,4 +22,8 @@ public class Offer {
     public Offer(String offerNumber) {
         this.offerNumber = offerNumber;
     }
+
+    UUID getId() {
+        return id;
+    }
 }

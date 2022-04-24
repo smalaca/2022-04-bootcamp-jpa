@@ -35,4 +35,8 @@ public class Invoice {
     public void payed() {
         status = InvoiceStatus.PAYED;
     }
+
+    UUID getId() {
+        return id;
+    }
 }

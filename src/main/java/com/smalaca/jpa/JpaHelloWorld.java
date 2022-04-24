@@ -37,8 +37,9 @@ public class JpaHelloWorld {
 
         Offer offerOne = new Offer(UUID.randomUUID().toString());
         Offer offerTwo = new Offer(UUID.randomUUID().toString());
-        offerRepository.save(offerOne);
+        UUID offerWithInvoice = offerRepository.save(offerOne);
         offerRepository.save(offerTwo);
+        UUID offerWithoutInvoice = offerRepository.save(new Offer(UUID.randomUUID().toString()));
 
         Basket basket = new Basket(new BasketIdentifier("tony stark", 42, LocalDate.now()));
         basket.add(UUID.randomUUID(), 13);
@@ -50,13 +51,13 @@ public class JpaHelloWorld {
         sellerRepository.save(new Seller(new ContactDetails("natasha romanoff", "NA", "black@widow.com")));
         sellerRepository.save(new Seller(new ContactDetails("wandaMaximoff", "987-654-321", "scarlet-witch@marvel.com")));
 
-        invoiceRepository.save(new Invoice(offerOne));
-        Invoice invoiceOne = new Invoice(offerTwo);
-        invoiceOne.sent();
-        invoiceRepository.save(invoiceOne);
-        Invoice invoiceTwo = new Invoice();
-        invoiceTwo.payed();
-        invoiceRepository.save(invoiceTwo);
+        UUID invoiceWithOfferOne = invoiceRepository.save(new Invoice(offerOne));
+        Invoice invoiceTwo = new Invoice(offerTwo);
+        invoiceTwo.sent();
+        UUID invoiceWithOfferTwo = invoiceRepository.save(invoiceTwo);
+        Invoice invoiceThree = new Invoice();
+        invoiceThree.payed();
+        UUID invoiceWithoutOffer = invoiceRepository.save(invoiceThree);
 
         Product productWithAmount = new Product("Coffee", "The best drink for you", BigDecimal.valueOf(123.456));
         productWithAmount.addAmount(13);
@@ -94,11 +95,16 @@ public class JpaHelloWorld {
         BasketRepository basketRepositoryLast = new BasketRepository(entityManagerLast);
         OfferRepository offerRepositoryLast = new OfferRepository(entityManagerLast);
 
-        productRepositoryLast.findAll().forEach(System.out::println);
+//        offerRepositoryLast.deleteById(offerWithoutInvoice);
+//        invoiceRepositoryLast.deleteById(invoiceWithoutOffer);
+//        offerRepositoryLast.deleteById(offerWithInvoice);
+//        invoiceRepositoryLast.deleteById(invoiceWithOfferTwo);
+
+//        productRepositoryLast.findAll().forEach(System.out::println);
         invoiceRepositoryLast.findAll().forEach(System.out::println);
-        buyerRepositoryLast.findAll().forEach(System.out::println);
-        sellerRepositoryLast.findAll().forEach(System.out::println);
-        basketRepositoryLast.findAll().forEach(System.out::println);
+//        buyerRepositoryLast.findAll().forEach(System.out::println);
+//        sellerRepositoryLast.findAll().forEach(System.out::println);
+//        basketRepositoryLast.findAll().forEach(System.out::println);
         offerRepositoryLast.findAll().forEach(System.out::println);
 
         entityManagerFactory.close();
