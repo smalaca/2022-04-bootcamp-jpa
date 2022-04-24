@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.UUID;
 
 @Entity
@@ -17,6 +18,15 @@ public class Invoice {
 
     @Enumerated
     private InvoiceStatus status = InvoiceStatus.CREATED;
+
+    @OneToOne
+    private Offer offer;
+
+    public Invoice() {}
+
+    public Invoice(Offer offer) {
+        this.offer = offer;
+    }
 
     public void sent() {
         status = InvoiceStatus.SENT;

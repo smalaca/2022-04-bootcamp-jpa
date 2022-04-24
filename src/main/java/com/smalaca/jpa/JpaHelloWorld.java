@@ -8,6 +8,8 @@ import com.smalaca.jpa.domain.BuyerRepository;
 import com.smalaca.jpa.domain.ContactDetails;
 import com.smalaca.jpa.domain.Invoice;
 import com.smalaca.jpa.domain.InvoiceRepository;
+import com.smalaca.jpa.domain.Offer;
+import com.smalaca.jpa.domain.OfferRepository;
 import com.smalaca.jpa.domain.Product;
 import com.smalaca.jpa.domain.ProductRepository;
 import com.smalaca.jpa.domain.Rating;
@@ -31,6 +33,12 @@ public class JpaHelloWorld {
         BuyerRepository buyerRepository = new BuyerRepository(entityManager);
         SellerRepository sellerRepository = new SellerRepository(entityManager);
         BasketRepository basketRepository = new BasketRepository(entityManager);
+        OfferRepository offerRepository = new OfferRepository(entityManager);
+
+        Offer offerOne = new Offer(UUID.randomUUID().toString());
+        Offer offerTwo = new Offer(UUID.randomUUID().toString());
+        offerRepository.save(offerOne);
+        offerRepository.save(offerTwo);
 
         Basket basket = new Basket(new BasketIdentifier("tony stark", 42, LocalDate.now()));
         basket.add(UUID.randomUUID(), 13);
@@ -42,8 +50,8 @@ public class JpaHelloWorld {
         sellerRepository.save(new Seller(new ContactDetails("natasha romanoff", "NA", "black@widow.com")));
         sellerRepository.save(new Seller(new ContactDetails("wandaMaximoff", "987-654-321", "scarlet-witch@marvel.com")));
 
-        invoiceRepository.save(new Invoice());
-        Invoice invoiceOne = new Invoice();
+        invoiceRepository.save(new Invoice(offerOne));
+        Invoice invoiceOne = new Invoice(offerTwo);
         invoiceOne.sent();
         invoiceRepository.save(invoiceOne);
         Invoice invoiceTwo = new Invoice();
@@ -84,15 +92,15 @@ public class JpaHelloWorld {
         BuyerRepository buyerRepositoryLast = new BuyerRepository(entityManagerLast);
         SellerRepository sellerRepositoryLast = new SellerRepository(entityManagerLast);
         BasketRepository basketRepositoryLast = new BasketRepository(entityManagerLast);
+        OfferRepository offerRepositoryLast = new OfferRepository(entityManagerLast);
 
         productRepositoryLast.findAll().forEach(System.out::println);
         invoiceRepositoryLast.findAll().forEach(System.out::println);
         buyerRepositoryLast.findAll().forEach(System.out::println);
         sellerRepositoryLast.findAll().forEach(System.out::println);
         basketRepositoryLast.findAll().forEach(System.out::println);
+        offerRepositoryLast.findAll().forEach(System.out::println);
 
-        entityManager.close();
-        entityManagerLast.close();
         entityManagerFactory.close();
     }
 }
