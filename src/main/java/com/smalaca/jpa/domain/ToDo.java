@@ -52,8 +52,8 @@ public class ToDo {
 
     @ElementCollection
     @CollectionTable(name = "TODO_COMMENTS", joinColumns = {@JoinColumn(name = "TODO_ID")})
-    @Column(name = "TODO_COMMENT", columnDefinition = "CLOB")
-    private List<String> comments = new ArrayList<>();
+    @Embedded
+    private List<Comment> comments = new ArrayList<>();
 
     private ToDo() {}
 
@@ -83,7 +83,7 @@ public class ToDo {
         this.description = description;
     }
 
-    public void addComment(String comment) {
+    public void addComment(Comment comment) {
         this.comments.add(comment);
     }
 }

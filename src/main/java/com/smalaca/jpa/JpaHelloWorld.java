@@ -1,5 +1,6 @@
 package com.smalaca.jpa;
 
+import com.smalaca.jpa.domain.Comment;
 import com.smalaca.jpa.domain.Description;
 import com.smalaca.jpa.domain.Item;
 import com.smalaca.jpa.domain.ItemRepository;
@@ -32,9 +33,9 @@ public class JpaHelloWorld {
         toDoWithDescription.add(new Description("this is something important", "this is important because this and that"));
         toDoRepository.save(toDoWithDescription);
         ToDo toDoWithComments = new ToDo("with comments");
-        toDoWithComments.addComment("I like it");
-        toDoWithComments.addComment("Somehow I don't like it");
-        toDoWithComments.addComment("it's pointless to do it");
+        toDoWithComments.addComment(new Comment("Odinson", "I like it"));
+        toDoWithComments.addComment(new Comment("Jane Foster", "Somehow I don't like it"));
+        toDoWithComments.addComment(new Comment("Thor", "it's pointless to do it"));
         toDoRepository.save(toDoWithComments);
 
         EntityManager entityManagerTwo = entityManagerFactory.createEntityManager();
