@@ -90,8 +90,8 @@ public class JpaHelloWorld {
         productRepositoryTwo.deleteById(productToRemoveId);
 
         EntityManager entityManagerThree = entityManagerFactory.createEntityManager();
-        OfferRepository offerRepositoryThree = new OfferRepository(entityManagerThree);
-        offerRepositoryThree.deleteById(offerWithItemsId);
+//        OfferRepository offerRepositoryThree = new OfferRepository(entityManagerThree);
+//        offerRepositoryThree.deleteById(offerWithItemsId);
 
         ProductRepository productRepositoryThree = new ProductRepository(entityManagerThree);
         Product productToModify = productRepositoryThree.findById(productToModifyId);
