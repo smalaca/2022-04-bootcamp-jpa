@@ -1,5 +1,6 @@
 package com.smalaca.jpa;
 
+import com.smalaca.jpa.domain.Address;
 import com.smalaca.jpa.domain.Author;
 import com.smalaca.jpa.domain.AuthorRepository;
 import com.smalaca.jpa.domain.Description;
@@ -25,8 +26,13 @@ public class JpaHelloWorld {
         AuthorRepository authorRepository = new AuthorRepository(entityManager);
 
         Author tonyStark = new Author("Tony", "Stark");
+        tonyStark.add(new Address("Krakowska 3/2", "12345", "Kraków", "Polska"));
+        tonyStark.add(new Address("Floriańska 13/42", "12345", "Kraków", "Polska"));
+        tonyStark.add(new Address("Krakowska 67", "43212", "Warszawa", "Polska"));
         authorRepository.save(tonyStark);
         Author steveRogers = new Author("Steve", "Rogers");
+        steveRogers.add(new Address("Krakowska 67", "43212", "Warszawa", "Polska"));
+        steveRogers.add(new Address("Lubicz 7/7", "12345", "Kraków", "Polska"));
         authorRepository.save(steveRogers);
 
         toDoRepository.save(new ToDo("Things that must be done.", tonyStark));
@@ -45,7 +51,7 @@ public class JpaHelloWorld {
         List<Author> authors = authorRepositoryLast.findAll();
 
         authors.forEach(System.out::println);
-        todos.forEach(System.out::println);
+//        todos.forEach(System.out::println);
 //        items.forEach(System.out::println);
 
         entityManagerFactory.close();
