@@ -54,7 +54,7 @@ public class JpaHelloWorld {
         basket.add(UUID.randomUUID(), 42);
         basketRepository.save(basket);
 
-        buyerRepository.save(new Buyer(new ContactDetails("peter-parker", "123-456-789", "spiderman@marvel.com")));
+        UUID buyerId = buyerRepository.save(new Buyer(new ContactDetails("peter-parker", "123-456-789", "spiderman@marvel.com")));
         buyerRepository.save(new Buyer(new ContactDetails("steve-rogers", "111-222-333", "captain-america@marvel.com")));
         sellerRepository.save(new Seller(new ContactDetails("natasha romanoff", "NA", "black@widow.com")));
         sellerRepository.save(new Seller(new ContactDetails("wandaMaximoff", "987-654-321", "scarlet-witch@marvel.com")));
@@ -92,6 +92,14 @@ public class JpaHelloWorld {
         EntityManager entityManagerThree = entityManagerFactory.createEntityManager();
 //        OfferRepository offerRepositoryThree = new OfferRepository(entityManagerThree);
 //        offerRepositoryThree.deleteById(offerWithItemsId);
+        InvoiceRepository invoiceRepositoryThree = new InvoiceRepository(entityManagerThree);
+        BuyerRepository buyerRepositoryThree = new BuyerRepository(entityManagerThree);
+        Invoice toAddOne = invoiceRepositoryThree.findById(invoiceWithOfferOne);
+        Invoice toAddTwo = invoiceRepositoryThree.findById(invoiceWithOfferTwo);
+        Buyer found = buyerRepositoryThree.findById(buyerId);
+        found.add(toAddOne);
+        found.add(toAddTwo);
+        buyerRepositoryThree.update(found);
 
         ProductRepository productRepositoryThree = new ProductRepository(entityManagerThree);
         Product productToModify = productRepositoryThree.findById(productToModifyId);
@@ -114,11 +122,11 @@ public class JpaHelloWorld {
 
 //        productRepositoryLast.findAll().forEach(System.out::println);
         invoiceRepositoryLast.findAll().forEach(System.out::println);
-//        buyerRepositoryLast.findAll().forEach(System.out::println);
+        buyerRepositoryLast.findAll().forEach(System.out::println);
 //        sellerRepositoryLast.findAll().forEach(System.out::println);
 //        basketRepositoryLast.findAll().forEach(System.out::println);
-        offerRepositoryLast.findAll().forEach(System.out::println);
-        offerItemRepositoryLast.findAll().forEach(System.out::println);
+//        offerRepositoryLast.findAll().forEach(System.out::println);
+//        offerItemRepositoryLast.findAll().forEach(System.out::println);
 
         entityManagerFactory.close();
     }

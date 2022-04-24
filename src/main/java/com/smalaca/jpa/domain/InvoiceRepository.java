@@ -29,7 +29,7 @@ public class InvoiceRepository {
         entityManager.getTransaction().commit();
     }
 
-    private Invoice findById(UUID id) {
+    public Invoice findById(UUID id) {
         return entityManager.find(Invoice.class, id);
     }
 }
