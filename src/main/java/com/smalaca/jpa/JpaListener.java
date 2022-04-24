@@ -57,14 +57,17 @@ public class JpaListener {
         toDoWithTags.add(charlesXavier);
         toDoRepository.save(toDoWithTags);
 
-        Iterable<ToDo> todos = toDoRepository.findAll();
+//        Iterable<ToDo> todos = toDoRepository.findAll();
 //        List<Item> items = itemRepositoryLast.findAll();
 //        List<Author> authors = authorRepositoryLast.findAll();
 
 //        authors.forEach(System.out::println);
-//        addressRepositoryLast.findAll().forEach(System.out::println);
-        watcherRepository.findAll().forEach(System.out::println);
-        todos.forEach(System.out::println);
+        System.out.println("KRAKÓW");
+        addressRepository.findAllByCity("Kraków").forEach(System.out::println);
+        System.out.println("WARSZAWA");
+        addressRepository.findAllByCity("Warszawa").forEach(System.out::println);
+//        watcherRepository.findAll().forEach(System.out::println);
+//        todos.forEach(System.out::println);
 //        items.forEach(System.out::println);
     }
 }
