@@ -5,6 +5,7 @@ import com.smalaca.jpa.domain.BasketIdentifier;
 import com.smalaca.jpa.domain.BasketRepository;
 import com.smalaca.jpa.domain.Buyer;
 import com.smalaca.jpa.domain.BuyerRepository;
+import com.smalaca.jpa.domain.Characteristic;
 import com.smalaca.jpa.domain.ContactDetails;
 import com.smalaca.jpa.domain.Invoice;
 import com.smalaca.jpa.domain.InvoiceRepository;
@@ -13,6 +14,8 @@ import com.smalaca.jpa.domain.OfferItem;
 import com.smalaca.jpa.domain.OfferItemRepository;
 import com.smalaca.jpa.domain.OfferRepository;
 import com.smalaca.jpa.domain.Product;
+import com.smalaca.jpa.domain.ProductDefinition;
+import com.smalaca.jpa.domain.ProductDefinitionRepository;
 import com.smalaca.jpa.domain.ProductRepository;
 import com.smalaca.jpa.domain.Rating;
 import com.smalaca.jpa.domain.Seller;
@@ -23,6 +26,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.UUID;
 
 public class JpaHelloWorld {
@@ -30,12 +34,18 @@ public class JpaHelloWorld {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ProductManagement");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+        ProductDefinitionRepository productDefinitionRepository = new ProductDefinitionRepository(entityManager);
         ProductRepository productRepository = new ProductRepository(entityManager);
         InvoiceRepository invoiceRepository = new InvoiceRepository(entityManager);
         BuyerRepository buyerRepository = new BuyerRepository(entityManager);
         SellerRepository sellerRepository = new SellerRepository(entityManager);
         BasketRepository basketRepository = new BasketRepository(entityManager);
         OfferRepository offerRepository = new OfferRepository(entityManager);
+
+        ProductDefinition drink = new ProductDefinition("DRINK", Set.of(Characteristic.SOFT, Characteristic.CHEAP));
+        ProductDefinition fastFood = new ProductDefinition("FAST FOOD", Set.of(Characteristic.SMALL, Characteristic.CHEAP));
+        productDefinitionRepository.save(drink);
+        productDefinitionRepository.save(fastFood);
 
         Offer offerOne = new Offer(UUID.randomUUID().toString());
         Offer offerTwo = new Offer(UUID.randomUUID().toString());
@@ -106,7 +116,12 @@ public class JpaHelloWorld {
         Seller foundSeller = sellerRepositoryThree.findById(sellerId);
         foundSeller.add(toAddOne);
         foundSeller.add(toAddThree);
+        foundSeller.add(drink);
+        foundSeller.add(fastFood);
         sellerRepositoryThree.update(foundSeller);
+        Seller carolDanvers = new Seller(new ContactDetails("carol danvers", "876678867", "captainM4rv3l@marvel.com"));
+        carolDanvers.add(drink);
+        sellerRepositoryThree.save(carolDanvers);
 
         ProductRepository productRepositoryThree = new ProductRepository(entityManagerThree);
         Product productToModify = productRepositoryThree.findById(productToModifyId);
@@ -118,6 +133,7 @@ public class JpaHelloWorld {
         InvoiceRepository invoiceRepositoryLast = new InvoiceRepository(entityManagerLast);
         BuyerRepository buyerRepositoryLast = new BuyerRepository(entityManagerLast);
         SellerRepository sellerRepositoryLast = new SellerRepository(entityManagerLast);
+        ProductDefinitionRepository productDefinitionRepositoryLast = new ProductDefinitionRepository(entityManagerLast);
         BasketRepository basketRepositoryLast = new BasketRepository(entityManagerLast);
         OfferRepository offerRepositoryLast = new OfferRepository(entityManagerLast);
         OfferItemRepository offerItemRepositoryLast = new OfferItemRepository(entityManagerLast);
@@ -128,9 +144,10 @@ public class JpaHelloWorld {
 //        invoiceRepositoryLast.deleteById(invoiceWithOfferTwo);
 
 //        productRepositoryLast.findAll().forEach(System.out::println);
-        invoiceRepositoryLast.findAll().forEach(System.out::println);
-        buyerRepositoryLast.findAll().forEach(System.out::println);
+//        invoiceRepositoryLast.findAll().forEach(System.out::println);
+//        buyerRepositoryLast.findAll().forEach(System.out::println);
         sellerRepositoryLast.findAll().forEach(System.out::println);
+        productDefinitionRepositoryLast.findAll().forEach(System.out::println);
 //        basketRepositoryLast.findAll().forEach(System.out::println);
 //        offerRepositoryLast.findAll().forEach(System.out::println);
 //        offerItemRepositoryLast.findAll().forEach(System.out::println);

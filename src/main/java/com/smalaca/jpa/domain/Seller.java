@@ -11,6 +11,9 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,14 @@ public class Seller {
     @OneToMany(mappedBy = "seller")
     private List<Invoice> invoices = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "DEFINITIONS_FOR_SELLER",
+            joinColumns = @JoinColumn(name = "ID_OF_SELLER"),
+            inverseJoinColumns = @JoinColumn(name = "ID_OF_PRODUCT_DEF")
+    )
+    private List<ProductDefinition> productDefinitions = new ArrayList<>();
+
     public Seller(ContactDetails contactDetails) {
         this.contactDetails = contactDetails;
     }
@@ -45,5 +56,9 @@ public class Seller {
     public void add(Invoice invoice) {
         invoices.add(invoice);
         invoice.assignTo(this);
+    }
+
+    public void add(ProductDefinition productDefinition) {
+        productDefinitions.add(productDefinition);
     }
 }
