@@ -153,5 +153,11 @@ public class JpaListener {
         springProductTwoRepository.findAllByManufacturer("Pepsi").forEach(System.out::println);
         System.out.println("COLA");
         springProductTwoRepository.findAllByManufacturer("CocaCola").forEach(System.out::println);
+        System.out.println("Not existing manufacturer");
+        springProductTwoRepository.findAllByManufacturer("NA").forEach(System.out::println);
+        System.out.println("not existing product");
+        System.out.println(springProductTwoRepository.findOneByName("NA").isEmpty());
+        System.out.println("7UP");
+        System.out.println(springProductTwoRepository.findOneByName("7UP").get());
     }
 }
