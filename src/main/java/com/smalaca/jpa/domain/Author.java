@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +28,7 @@ public class Author {
     private String lastName;
 
     @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "AUTHOR_ID")
     private Set<Address> addresses = new HashSet<>();
 
     public Author(String firstName, String lastName) {
