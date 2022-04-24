@@ -14,6 +14,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PostLoad;
@@ -21,8 +23,10 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity(name = "ToDoEntity")
@@ -72,6 +76,14 @@ public class ToDo {
     @JoinColumn(name = "AUTHOR_ID")
     private Author author;
 
+    @ManyToMany
+    @JoinTable(
+            name = "WATCHERS_OF_TODOS",
+            joinColumns = @JoinColumn(name = "TODO_ID"),
+            inverseJoinColumns = @JoinColumn(name = "WATCHER_ID")
+    )
+    private Set<Watcher> watchers = new HashSet<>();
+
     private ToDo() {}
 
     public ToDo(String subject, Author author) {
@@ -108,5 +120,9 @@ public class ToDo {
 
     public void addTag(String code, String description) {
         tags.put(code, description);
+    }
+
+    public void add(Watcher watcher) {
+        watchers.add(watcher);
     }
 }
