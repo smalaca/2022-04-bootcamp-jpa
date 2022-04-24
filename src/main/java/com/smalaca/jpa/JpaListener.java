@@ -149,5 +149,9 @@ public class JpaListener {
         springProductTwoRepository.save(new ProductTwo("Mirinda", "Pepsi", "drink", 43));
 
         springProductTwoRepository.findAll().forEach(System.out::println);
+        System.out.println("PEPSI");
+        springProductTwoRepository.findAllByManufacturer("Pepsi").forEach(System.out::println);
+        System.out.println("COLA");
+        springProductTwoRepository.findAllByManufacturer("CocaCola").forEach(System.out::println);
     }
 }
