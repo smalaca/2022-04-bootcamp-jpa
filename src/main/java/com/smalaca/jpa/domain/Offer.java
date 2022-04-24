@@ -23,7 +23,7 @@ public class Offer {
 
     private String offerNumber;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<OfferItem> items = new ArrayList<>();
 
     public Offer(String offerNumber) {

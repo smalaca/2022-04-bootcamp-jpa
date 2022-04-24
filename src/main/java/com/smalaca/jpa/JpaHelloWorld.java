@@ -47,7 +47,7 @@ public class JpaHelloWorld {
         offerWithItems.add(new OfferItem(UUID.randomUUID(), 13));
         offerWithItems.add(new OfferItem(UUID.randomUUID(), 42));
         offerWithItems.add(new OfferItem(UUID.randomUUID(), 7));
-        offerRepository.save(offerWithItems);
+        UUID offerWithItemsId = offerRepository.save(offerWithItems);
 
         Basket basket = new Basket(new BasketIdentifier("tony stark", 42, LocalDate.now()));
         basket.add(UUID.randomUUID(), 13);
@@ -90,6 +90,9 @@ public class JpaHelloWorld {
         productRepositoryTwo.deleteById(productToRemoveId);
 
         EntityManager entityManagerThree = entityManagerFactory.createEntityManager();
+        OfferRepository offerRepositoryThree = new OfferRepository(entityManagerThree);
+        offerRepositoryThree.deleteById(offerWithItemsId);
+
         ProductRepository productRepositoryThree = new ProductRepository(entityManagerThree);
         Product productToModify = productRepositoryThree.findById(productToModifyId);
         productToModify.changeDescription("Tea is better than Coffee");
