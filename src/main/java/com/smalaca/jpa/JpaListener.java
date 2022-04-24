@@ -40,12 +40,12 @@ public class JpaListener {
 
         Author tonyStark = new Author("Tony", "Stark");
         tonyStark.add(new Address("Krakowska", "12345", "Kraków", "Polska"));
-        tonyStark.add(new Address("Floriańska", "12345", "Kraków", "Polska"));
+        tonyStark.add(new Address("Floriańska", "12345", "Kraków", "USA"));
         tonyStark.add(new Address("Krakowska", "43212", "Wrocław", "Polska"));
         authorRepository.save(tonyStark);
         Author steveRogers = new Author("Steve", "Rogers");
         steveRogers.add(new Address("Krakowska", "43212", "Warszawa", "Polska"));
-        steveRogers.add(new Address("Lubicz", "12345", "Kraków", "Polska"));
+        steveRogers.add(new Address("Lubicz", "12345", "Kraków", "Hiszpania"));
         steveRogers.add(new Address("Lubicz", "12345", "Pcim", "Polska"));
         authorRepository.save(steveRogers);
 
@@ -75,6 +75,8 @@ public class JpaListener {
         System.out.println(addressRepository.findOneByCityAndStreet("Kraków", "Lubicz").get());
         System.out.println("CITIES");
         addressRepository.findAllCities().forEach(System.out::println);
+        System.out.println("In country");
+        addressRepository.findAllByCountry("Polska").forEach(System.out::println);
 //        watcherRepository.findAll().forEach(System.out::println);
 //        todos.forEach(System.out::println);
 //        items.forEach(System.out::println);

@@ -18,4 +18,6 @@ public interface SpringAddressRepository extends CrudRepository<Address, UUID> {
 
     @Query("SELECT DISTINCT a.city FROM Address a ORDER BY a.city DESC")
     List<String> findAllCities();
+
+    List<AddressInCountryProjection> findAllByCountry(String country);
 }
